@@ -91,9 +91,11 @@ await bannedTag.findOne({ guildID: settings.guildID }, async ( err, res) => {
 if (invite === member.guild.vanityURLCode) {
 kayitchannel.wsend(`
 **West #2020** ya hoş geldin  ${member} biz de seni bekliyorduk, hesabın \`${memberGün} ${memberAylar} ${memberTarih} tarihinde \`` + moment(member.user.createdTimestamp).fromNow() + `\` oluşturulmuş ${guvenilirlik ? `Hesabınız Şüpheli ${red}` : `Hesabınız Güvenli ${green}` }\n
+````
 Sunucumuzun kurallarımız ${kurallar} kanalında belirtilmiştir. Unutma sunucu içerisinde ki **ceza işlemi** kuralları okuduğunu varsayarak uyğulanacak.
 Sunucu seninle birlikte ailemiz **${üyesayısı}**  :tada: :tada: :tada:`);
-channel.wsend(`${member}, sunucuya katıldı! Davet Eden: **Sunucu Özel URL** :tada:`)
+channel.wsend(`${member}, sunucuya katıldı! Davet Eden: **Sunucu Özel URL** :tada:
+`````)
 return }
 if (!invite.inviter) return;
 await inviteMemberSchema.findOneAndUpdate({ guildID: member.guild.id, userID: member.user.id }, { $set: { inviter: invite.inviter.id, date: Date.now() } }, { upsert: true });
@@ -110,9 +112,11 @@ const inviterData = await inviterSchema.findOne({ guildID: member.guild.id, user
 const total = inviterData ? inviterData.total : 0;
 kayitchannel.wsend(`
 **West #2020** ya hoş geldin  ${member} biz de seni bekliyorduk, hesabın ${memberGün} ${memberAylar} ${memberTarih} tarihinde \`` + moment(member.user.createdTimestamp).fromNow() + `\` oluşturulmuş ${guvenilirlik ? `Hesabınız Şüpheli ${red}` : `Hesabınız Güvenli ${green}` }\n
+````
 Sunucumuzun kurallarımız ${kurallar} kanalında belirtilmiştir. Unutma sunucu içerisinde ki **ceza işlemi** kuralları okuduğunu varsayarak uyğulanacak.
 Sunucu seninle birlikte ailemiz **${üyesayısı}**  :tada: :tada: :tada:`);
-channel.wsend(`${member}, ${invite.inviter.tag} davetiyle katıldı! (**${total}**)`)
+channel.wsend(`${member}, ${invite.inviter.tag} davetiyle katıldı! (**${total}**)
+`````)
 }
 await coin.findOneAndUpdate({ guildID: member.guild.id, userID: invite.inviter.id }, { $inc: { coin: 1 } }, { upsert: true });
 const gorevData = await gorev.findOne({ guildID: member.guild.id, userID: invite.inviter.id });
